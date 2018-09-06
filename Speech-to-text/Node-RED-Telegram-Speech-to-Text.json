@@ -1,0 +1,226 @@
+[
+    {
+        "id": "5bde946a.6a6ebc",
+        "type": "tab",
+        "label": "Telegram_Speech-to-Text",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "26f9195b.b5d4f6",
+        "type": "function",
+        "z": "5bde946a.6a6ebc",
+        "name": "Extract file_id",
+        "func": "msg.file_id = msg.payload.content;\nmsg.token = \"639184080:AAHsnzDajlKAonXResIrswVp2eWtHCfJG8c\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "62f7705f.74c57"
+            ]
+        ]
+    },
+    {
+        "id": "62f7705f.74c57",
+        "type": "http request",
+        "z": "5bde946a.6a6ebc",
+        "name": "getUrl",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.telegram.org/bot{{{token}}}/getFile?file_id={{{file_id}}}",
+        "tls": "",
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "4109d808.9d60d8"
+            ]
+        ]
+    },
+    {
+        "id": "4109d808.9d60d8",
+        "type": "function",
+        "z": "5bde946a.6a6ebc",
+        "name": "Extract file_path",
+        "func": "msg.payload = \"https://api.telegram.org/file/bot\" + msg.token + \"/\" + msg.payload.result.file_path;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "111a8fb2.39f4a"
+            ]
+        ]
+    },
+    {
+        "id": "111a8fb2.39f4a",
+        "type": "watson-speech-to-text",
+        "z": "5bde946a.6a6ebc",
+        "name": "",
+        "alternatives": "",
+        "speakerlabels": false,
+        "smartformatting": false,
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustomhidden": "",
+        "band": "BroadbandModel",
+        "bandhidden": "",
+        "password": "W3f2Z2EIGhXg",
+        "apikey": "",
+        "payload-response": false,
+        "streaming-mode": false,
+        "streaming-mute": false,
+        "auto-connect": false,
+        "discard-listening": false,
+        "disable-precheck": false,
+        "default-endpoint": false,
+        "service-endpoint": "",
+        "x": 740,
+        "y": 220,
+        "wires": [
+            [
+                "b8a7989f.6f1438"
+            ]
+        ]
+    },
+    {
+        "id": "28451539.44944a",
+        "type": "function",
+        "z": "5bde946a.6a6ebc",
+        "name": "Save context",
+        "func": "context.flow.chatId = msg.payload.chatId;\ncontext.flow.type = msg.payload.type;\nmsg.payload = msg.transcription;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 340,
+        "wires": [
+            [
+                "d36e2d54.ac181"
+            ]
+        ]
+    },
+    {
+        "id": "a979aeef.72cf4",
+        "type": "function",
+        "z": "5bde946a.6a6ebc",
+        "name": "Restore context",
+        "func": "msg.payload = {\n    chatId : 566062066,\n    content : msg.payload.output.text[0],\n    type : \"message\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "e772e721.6f6458"
+            ]
+        ]
+    },
+    {
+        "id": "d36e2d54.ac181",
+        "type": "watson-conversation-v1",
+        "z": "5bde946a.6a6ebc",
+        "name": "Chatbot",
+        "workspaceid": "",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/conversation/api",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 420,
+        "y": 340,
+        "wires": [
+            [
+                "a979aeef.72cf4"
+            ]
+        ]
+    },
+    {
+        "id": "e1cdc68.dcfbb38",
+        "type": "telegram receiver",
+        "z": "5bde946a.6a6ebc",
+        "name": "",
+        "bot": "",
+        "saveDataDir": "",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "1c2bff9a.cef53"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e772e721.6f6458",
+        "type": "telegram sender",
+        "z": "5bde946a.6a6ebc",
+        "name": "",
+        "bot": "",
+        "x": 810,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c2bff9a.cef53",
+        "type": "link out",
+        "z": "5bde946a.6a6ebc",
+        "name": "Telegram - AudioInput",
+        "links": [
+            "a82a5c4f.7346e"
+        ],
+        "x": 295,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a82a5c4f.7346e",
+        "type": "link in",
+        "z": "5bde946a.6a6ebc",
+        "name": "",
+        "links": [
+            "1c2bff9a.cef53"
+        ],
+        "x": 115,
+        "y": 220,
+        "wires": [
+            [
+                "26f9195b.b5d4f6"
+            ]
+        ]
+    },
+    {
+        "id": "8e2cd92.a929c28",
+        "type": "link in",
+        "z": "5bde946a.6a6ebc",
+        "name": "Chatbot",
+        "links": [
+            "b8a7989f.6f1438"
+        ],
+        "x": 115,
+        "y": 340,
+        "wires": [
+            [
+                "28451539.44944a"
+            ]
+        ]
+    },
+    {
+        "id": "b8a7989f.6f1438",
+        "type": "link out",
+        "z": "5bde946a.6a6ebc",
+        "name": "Speech-to-Text",
+        "links": [
+            "8e2cd92.a929c28"
+        ],
+        "x": 875,
+        "y": 220,
+        "wires": []
+    }
+]

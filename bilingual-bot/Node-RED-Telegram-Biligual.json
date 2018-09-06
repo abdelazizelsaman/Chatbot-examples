@@ -1,0 +1,392 @@
+[
+    {
+        "id": "9bb8a6d3.6fbe58",
+        "type": "tab",
+        "label": "Telegram_Biligual",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8c9e0b0c.8f4ff8",
+        "type": "telegram receiver",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "bot": "",
+        "saveDataDir": "",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "9a479bc9.5898a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9a479bc9.5898a8",
+        "type": "function",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Save context",
+        "func": "context.flow.chatId = msg.payload.chatId;\ncontext.flow.type = msg.payload.type;\nmsg.payload = msg.payload.content;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "58391f7f.53d34"
+            ]
+        ]
+    },
+    {
+        "id": "ec0ea5bf.961178",
+        "type": "watson-conversation-v1",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Chatbot",
+        "workspaceid": "",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/conversation/api",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 600,
+        "y": 80,
+        "wires": [
+            [
+                "29484250.1327fe"
+            ]
+        ]
+    },
+    {
+        "id": "29484250.1327fe",
+        "type": "function",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Restore context - en",
+        "func": "msg.payload.chatId = context.flow.chatId;\nmsg.payload.type = context.flow.type;\nmsg.payload.content = msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 820,
+        "y": 80,
+        "wires": [
+            [
+                "181c7137.5146af"
+            ]
+        ]
+    },
+    {
+        "id": "f611a19.5a8f66",
+        "type": "telegram sender",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "bot": "",
+        "x": 850,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58391f7f.53d34",
+        "type": "watson-language-translator-identify",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/language-translator/api",
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "d24f45cd.07fbc8"
+            ]
+        ]
+    },
+    {
+        "id": "d24f45cd.07fbc8",
+        "type": "switch",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "property": "lang.language",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ar",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "en",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 300,
+        "wires": [
+            [
+                "6e7f0644.b1c728"
+            ],
+            [
+                "ca62f93e.ad8a48"
+            ]
+        ]
+    },
+    {
+        "id": "3f72355e.02278a",
+        "type": "watson-conversation-v1",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Chatbot",
+        "workspaceid": "",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/assistant/api",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 280,
+        "y": 460,
+        "wires": [
+            [
+                "a0d944d1.c5cfc8"
+            ]
+        ]
+    },
+    {
+        "id": "e557f038.cd48",
+        "type": "watson-translator",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Arabic to English",
+        "action": "translate",
+        "basemodel": "en-nl",
+        "domain": "general",
+        "srclang": "ar",
+        "destlang": "en",
+        "password": "",
+        "apikey": "",
+        "custom": "",
+        "domainhidden": "general",
+        "srclanghidden": "ar",
+        "destlanghidden": "en",
+        "basemodelhidden": "en-nl",
+        "customhidden": "",
+        "filetype": "forcedglossary",
+        "trainid": "",
+        "lgparams2": true,
+        "neural": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/language-translator/api",
+        "x": 170,
+        "y": 400,
+        "wires": [
+            [
+                "3f72355e.02278a"
+            ]
+        ]
+    },
+    {
+        "id": "d5432039.77d61",
+        "type": "watson-translator",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "English to Arabic",
+        "action": "translate",
+        "basemodel": "en-nl",
+        "domain": "general",
+        "srclang": "en",
+        "destlang": "ar",
+        "password": "",
+        "apikey": "",
+        "custom": "",
+        "domainhidden": "general",
+        "srclanghidden": "en",
+        "destlanghidden": "ar",
+        "basemodelhidden": "en-nl",
+        "customhidden": "",
+        "filetype": "forcedglossary",
+        "trainid": "",
+        "lgparams2": true,
+        "neural": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/language-translator/api",
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "746db626.f708c8"
+            ]
+        ]
+    },
+    {
+        "id": "ca63df50.2f169",
+        "type": "inject",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "topic": "",
+        "payload": "مرحبا",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "58391f7f.53d34"
+            ]
+        ]
+    },
+    {
+        "id": "a0d944d1.c5cfc8",
+        "type": "function",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Extract Text",
+        "func": "\n//msg.payload = msg.payload.output.text[0] ;\n\nmsg.payload = msg.payload.output.text[0];\nmsg.chatId = context.flow.chatId;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 520,
+        "wires": [
+            [
+                "d5432039.77d61"
+            ]
+        ]
+    },
+    {
+        "id": "746db626.f708c8",
+        "type": "function",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Restore Context - ar",
+        "func": "//msg.payload.chatId = context.flow.chatId;\n//msg.payload.type = context.flow.type;\n//msg.payload.content = msg.payload.output.text[0];\n\nmsg.payload = {\n    chatId : context.flow.chatId,\n    content : msg.payload,\n    type : context.flow.type\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 680,
+        "y": 400,
+        "wires": [
+            [
+                "e4d1aca.387f05"
+            ]
+        ]
+    },
+    {
+        "id": "52cd34ba.9369bc",
+        "type": "inject",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "topic": "",
+        "payload": "Hello",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "58391f7f.53d34"
+            ]
+        ]
+    },
+    {
+        "id": "6e7f0644.b1c728",
+        "type": "link out",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Arabic",
+        "links": [
+            "a35ce663.2007f8"
+        ],
+        "x": 695,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a35ce663.2007f8",
+        "type": "link in",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "links": [
+            "6e7f0644.b1c728"
+        ],
+        "x": 35,
+        "y": 360,
+        "wires": [
+            [
+                "e557f038.cd48"
+            ]
+        ]
+    },
+    {
+        "id": "ca62f93e.ad8a48",
+        "type": "link out",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "English",
+        "links": [
+            "2ca041fa.ca529e"
+        ],
+        "x": 695,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2ca041fa.ca529e",
+        "type": "link in",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "",
+        "links": [
+            "ca62f93e.ad8a48"
+        ],
+        "x": 495,
+        "y": 80,
+        "wires": [
+            [
+                "ec0ea5bf.961178"
+            ]
+        ]
+    },
+    {
+        "id": "181c7137.5146af",
+        "type": "link out",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Telegram - English",
+        "links": [
+            "e4672077.d096f"
+        ],
+        "x": 935,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e4d1aca.387f05",
+        "type": "link out",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Telegram - Arabic",
+        "links": [
+            "e4672077.d096f"
+        ],
+        "x": 815,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e4672077.d096f",
+        "type": "link in",
+        "z": "9bb8a6d3.6fbe58",
+        "name": "Telegram",
+        "links": [
+            "181c7137.5146af",
+            "e4d1aca.387f05"
+        ],
+        "x": 715,
+        "y": 180,
+        "wires": [
+            [
+                "f611a19.5a8f66"
+            ]
+        ]
+    }
+]

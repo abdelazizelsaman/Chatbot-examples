@@ -1,0 +1,226 @@
+[
+    {
+        "id": "7be09a53.e55584",
+        "type": "tab",
+        "label": "Facebook ",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "716246d6.6370d8",
+        "type": "http in",
+        "z": "7be09a53.e55584",
+        "name": "",
+        "url": "/facebook/webhook",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "42fd44f3.acd4cc"
+            ]
+        ]
+    },
+    {
+        "id": "42fd44f3.acd4cc",
+        "type": "function",
+        "z": "7be09a53.e55584",
+        "name": "verifyRequest",
+        "func": "msg.payload = msg.payload['hub.challenge'];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 120,
+        "wires": [
+            [
+                "821d2264.4c711",
+                "4b033823.21bfb8"
+            ]
+        ]
+    },
+    {
+        "id": "821d2264.4c711",
+        "type": "http response",
+        "z": "7be09a53.e55584",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 760,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4b033823.21bfb8",
+        "type": "debug",
+        "z": "7be09a53.e55584",
+        "name": "LogVerifyResponse",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 810,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2da9c8f2.4fcd68",
+        "type": "http in",
+        "z": "7be09a53.e55584",
+        "name": "",
+        "url": "/facebook/webhook",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 360,
+        "wires": [
+            [
+                "bc00e43e.5c3f88",
+                "4d634deb.da5384"
+            ]
+        ]
+    },
+    {
+        "id": "bc00e43e.5c3f88",
+        "type": "function",
+        "z": "7be09a53.e55584",
+        "name": "Set Conversation Input",
+        "func": "context.global.sid = msg.payload.entry[0].messaging[0].sender.id;\nmsg.payload = msg.payload.entry[0].messaging[0].message.text;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 440,
+        "wires": [
+            [
+                "ad492f7.1fa59d",
+                "9e84f24d.22c25"
+            ]
+        ]
+    },
+    {
+        "id": "ad492f7.1fa59d",
+        "type": "watson-conversation-v1",
+        "z": "7be09a53.e55584",
+        "name": "Chatbot-facebook",
+        "workspaceid": "",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/assistant/api",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "b1aa97ef.401b68",
+                "9220552a.481488"
+            ]
+        ]
+    },
+    {
+        "id": "b1aa97ef.401b68",
+        "type": "function",
+        "z": "7be09a53.e55584",
+        "name": "Format Send Request",
+        "func": "var messageText = msg.payload.output.text[0];\nvar senderId = context.global.sid;\nmsg.payload =\n{\n\"recipient\": {\n\"id\": senderId\n},\n\"message\": {\n\"text\": messageText\n}\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 440,
+        "wires": [
+            [
+                "1dd4e405.a7062c",
+                "a698d546.c3bf28"
+            ]
+        ]
+    },
+    {
+        "id": "1dd4e405.a7062c",
+        "type": "http request",
+        "z": "7be09a53.e55584",
+        "name": "Send API Request",
+        "method": "POST",
+        "ret": "obj",
+        "url": "",
+        "tls": "",
+        "x": 790,
+        "y": 360,
+        "wires": [
+            [
+                "9514d428.548288"
+            ]
+        ]
+    },
+    {
+        "id": "9514d428.548288",
+        "type": "http response",
+        "z": "7be09a53.e55584",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 890,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9e84f24d.22c25",
+        "type": "debug",
+        "z": "7be09a53.e55584",
+        "name": "Message sent to conversation node",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 560,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "a698d546.c3bf28",
+        "type": "debug",
+        "z": "7be09a53.e55584",
+        "name": "Message sent to Facebook",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 900,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9220552a.481488",
+        "type": "debug",
+        "z": "7be09a53.e55584",
+        "name": "Message received from conversation node",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 850,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "4d634deb.da5384",
+        "type": "debug",
+        "z": "7be09a53.e55584",
+        "name": "Message received from Facebook",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 440,
+        "y": 260,
+        "wires": []
+    }
+]

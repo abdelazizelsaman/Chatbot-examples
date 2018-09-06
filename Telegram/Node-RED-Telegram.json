@@ -1,0 +1,150 @@
+[
+    {
+        "id": "d24d80cb.a8234",
+        "type": "tab",
+        "label": "Telegram",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ca7ee200.ee3de",
+        "type": "function",
+        "z": "d24d80cb.a8234",
+        "name": "Save context",
+        "func": "context.flow.chatId = msg.payload.chatId;\ncontext.flow.type = msg.payload.type;\nmsg.payload = msg.payload.content;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "215e8b57.f4b6b4",
+                "bfec8b2a.e608c8"
+            ]
+        ]
+    },
+    {
+        "id": "215e8b57.f4b6b4",
+        "type": "watson-conversation-v1",
+        "z": "d24d80cb.a8234",
+        "name": "Chatbot",
+        "workspaceid": "",
+        "multiuser": false,
+        "context": true,
+        "empty-payload": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/conversation/api",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 420,
+        "y": 340,
+        "wires": [
+            [
+                "3dfbbbad.e509b4",
+                "fbd7e85f.80ab48"
+            ]
+        ]
+    },
+    {
+        "id": "3dfbbbad.e509b4",
+        "type": "function",
+        "z": "d24d80cb.a8234",
+        "name": "Restore context",
+        "func": "msg.payload.chatId = context.flow.chatId;\nmsg.payload.type = context.flow.type;\nmsg.payload.content = msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "94cb61e.bca6ea",
+                "79039d28.fd1f54"
+            ]
+        ]
+    },
+    {
+        "id": "94cb61e.bca6ea",
+        "type": "telegram sender",
+        "z": "d24d80cb.a8234",
+        "name": "",
+        "bot": "",
+        "x": 710,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a6c46a6.587b08",
+        "type": "telegram receiver",
+        "z": "d24d80cb.a8234",
+        "name": "",
+        "bot": "",
+        "saveDataDir": "",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "ca7ee200.ee3de",
+                "1c19c71a.be61b9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "79039d28.fd1f54",
+        "type": "debug",
+        "z": "d24d80cb.a8234",
+        "name": "Message sent to Telegram",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 780,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "bfec8b2a.e608c8",
+        "type": "debug",
+        "z": "d24d80cb.a8234",
+        "name": "Message sent to conversation node",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "fbd7e85f.80ab48",
+        "type": "debug",
+        "z": "d24d80cb.a8234",
+        "name": "Messege received from conversation node",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 680.0000076293945,
+        "y": 259.00000286102295,
+        "wires": []
+    },
+    {
+        "id": "1c19c71a.be61b9",
+        "type": "debug",
+        "z": "d24d80cb.a8234",
+        "name": "Message received form Telegram",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 480,
+        "y": 100,
+        "wires": []
+    }
+]
