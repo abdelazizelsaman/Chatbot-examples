@@ -2,6 +2,9 @@
 This repository includes various examples for chatbots developed using IBM Watson conversation tool, integrations with various services like language translator & Speech-to-Text And deployment flows on various messaging platforms (using Node-RED)      
 
 
+# Have No idea what is a chatbot?
+Please review this [tutorial](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/tutorial01.md).
+
 # Resources
 
 Node-RED labs on the use of the Watson Developer Cloud services: https://github.com/watson-developer-cloud/node-red-labs
