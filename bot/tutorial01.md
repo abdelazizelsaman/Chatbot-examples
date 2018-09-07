@@ -5,7 +5,7 @@ Conversation Service. IBM have launched a free online educational program "Digit
 
 Here are our steps to create our 1st chatbot:
 
-1- Create an account on [DN-A](digitalnationafrica.com).
+1- Create an account on [DN-A](https://digitalnationafrica.com).
 
 2- Finish ["Getting Started with IBM Cloud"](https://developer.ibm.com/africa/skills/innovator-getting-started-with-ibm-cloud/) Course.
 
@@ -21,7 +21,7 @@ Prezi link: https://prezi.com/view/qVzJdIZuseHtBDFPWVSx/
 
 # Steps
 
-1- Open [Digital Nation Africa](digitalnationafrica.com) Website
+1- Open [Digital Nation Africa](https://digitalnationafrica.com) Website
 ![alt text](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/step1.JPG)
 
 2- Create an Account
