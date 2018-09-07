@@ -2,8 +2,21 @@
 This repository includes various examples for chatbots developed using IBM Watson conversation service, integrations with various services like language translator & Speech-to-Text And deployment flows on various messaging platforms (using Node-RED)      
 
 
-# Have No idea what is a chatbot?
+### Have No idea what is a chatbot?
 Please review this [tutorial](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/tutorial01.md).
+
+### Deploy your Chatbot on Facebook:
+Check this [link](https://github.com/abdelazizelsaman/Chatbot-examples/tree/master/Facebook)
+
+### Deploy your Chatbot on Telegram:
+Check this [link](https://github.com/abdelazizelsaman/Chatbot-examples/tree/master/Telegram)
+
+### Develop a bilingual Chatbot:
+Check this [link](https://github.com/abdelazizelsaman/Chatbot-examples/tree/master/bilingual-bot)
+
+### Develop a Speech-to-Text Chatbot (takes input in audio format):
+Check this [link](https://github.com/abdelazizelsaman/Chatbot-examples/tree/master/Speech-to-text)
+
 
 # Resources
 
