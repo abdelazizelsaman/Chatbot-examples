@@ -3,7 +3,7 @@ This repository includes various examples for chatbots developed using IBM Watso
 
 
 ### Have No idea what is a chatbot?
-Please review this [tutorial](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/tutorial01.md).
+Check this [tutorial](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/tutorial01.md).
 
 ### Have no idea what is Node-RED ?
 Watch this video: https://www.youtube.com/watch?v=3AR432bguOY
