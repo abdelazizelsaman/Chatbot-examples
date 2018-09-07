@@ -5,6 +5,11 @@ This repository includes various examples for chatbots developed using IBM Watso
 ### Have No idea what is a chatbot?
 Please review this [tutorial](https://github.com/abdelazizelsaman/Chatbot-examples/blob/master/bot/tutorial01.md).
 
+### Have no idea what is Node-RED ?
+Watch this video: https://www.youtube.com/watch?v=3AR432bguOY
+
+Note: In the above tutorial, Node-RED is installed on your desktop, but you can use an online version through IBM [Node-RED starter kit](https://console.bluemix.net/catalog/starters/node-red-starter).
+
 ### Deploy your Chatbot on Facebook:
 Check this [link](https://github.com/abdelazizelsaman/Chatbot-examples/tree/master/Facebook)
 
