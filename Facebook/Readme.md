@@ -1,7 +1,6 @@
 # Read Me
 
-### This Folder contains Node-RED flows, which can be 
-imported through the following steps:
+### This Folder contains Node-RED flows, which can be imported through the following steps:
 
 
 1- Choose Import -> Clipboard
