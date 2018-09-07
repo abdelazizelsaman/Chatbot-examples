@@ -11,13 +11,15 @@ Here are our steps to create our 1st chatbot:
 
 3- Finish ["Build your own chatbot"](https://developer.ibm.com/africa/skills/innovator-chatbot-for-good/) Course.
 
-If you can't access DN-A or you need more info about chatbots in general, you can review my [Prezi](https://prezi.com/view/qVzJdIZuseHtBDFPWVSx/) presentation which covers the chatbot topic more generally. Also you can start the IBM Chatbot course on Coursera or edx.
+If you can't access DN-A or you need more info about chatbots in general, you can review my [Prezi](https://prezi.com/view/qVzJdIZuseHtBDFPWVSx/) presentation which covers the chatbot topic more deeply. Also you can start the IBM Chatbot course on Coursera or edx.
 
 Coursra: https://www.coursera.org/learn/how-to-build-your-own-chatbot-without-coding
 
 edx: https://www.edx.org/course/how-to-build-chatbots-and-make-money
 
 Prezi link: https://prezi.com/view/qVzJdIZuseHtBDFPWVSx/
+
+IBM Watson Assistant Tutorials: https://www.youtube.com/playlist?list=PLZDyxLlNKRY8zx37vPh6s_pCtOXIp_5yL
 
 # Steps
 
